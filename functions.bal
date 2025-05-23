@@ -15,20 +15,21 @@ isolated function getOrderPizzas(string customerName) returns OrderPizza[]|error
         select {
             pizzaId: orderPizza.pizzaId,
             quantity: orderPizza.quantity,
-            customizations: flattenJsonArray(orderPizza.customizations)
+            customizations: flattenJsonArrayToStringArray(orderPizza.customizations)
         };
     return orderPizzas;
 }
 
-isolated function flattenJsonArray(json arr, json[] result = []) returns json[] {
-    if arr !is json[] {
-        return result;
-    }
-    foreach var item in arr {
-        if item is json[] {
-            result.push(...flattenJsonArray(item, result));
-        } else {
-            result.push(item);
+isolated function flattenJsonArrayToStringArray(json arr, string[] result = []) returns string[] {
+    if arr is json[] {
+        foreach var item in arr {
+            if item is json[] {
+                result.push(...flattenJsonArrayToStringArray(item, result));
+            } else if item is string {
+                result.push(item);
+            } else {
+                continue;
+            }
         }
     }
     return result;
