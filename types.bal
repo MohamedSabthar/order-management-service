@@ -12,7 +12,10 @@ type Pizza record {|
 |};
 
 type PizzaResponse record {|
-    *Pizza;
+    string id;
+    string name;
+    string description;
+    decimal basePrice;
     string[] toppings;
 |};
 
@@ -26,7 +29,8 @@ type OrderPizza record {|
 |};
 
 type OrderPizzaRequest record {|
-    *OrderPizza;
+    string pizzaId;
+    int quantity;
     string[] customizations;
 |};
 
