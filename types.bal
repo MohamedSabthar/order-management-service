@@ -11,6 +11,11 @@ type Pizza record {|
     json toppings;
 |};
 
+type PizzaResponse record {|
+    *Pizza;
+    string[] toppings;
+|};
+
 type OrderPizza record {|
     @sql:Column {
         name: "pizza_id"
@@ -20,9 +25,14 @@ type OrderPizza record {|
     json customizations;
 |};
 
+type OrderPizzaRequest record {|
+    *OrderPizza;
+    string[] customizations;
+|};
+
 type OrderRequest record {|
     string customerName;
-    OrderPizza[] pizzas;
+    OrderPizzaRequest[] pizzas;
 |};
 
 enum OrderStatus {

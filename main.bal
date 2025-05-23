@@ -14,8 +14,13 @@ final mysql:Client dbClient = check new (
 
 service /v1 on new http:Listener(8080) {
 
-    resource function get pizzas() returns Pizza[]|error {
-        return getPizzasFromDb();
+    resource function get pizzas() returns PizzaResponse[]|error {
+        do {
+            Pizza[] pizzas = check getPizzasFromDb();
+            return check pizzas.cloneWithType();   
+        } on fail error e {
+            return error("Failed to obtain pizza from database", e);
+        }
     }
 
     resource function post orders(@http:Payload OrderRequest orderRequest) returns Order|error {
