@@ -28,6 +28,12 @@ type OrderPizza record {|
     json customizations;
 |};
 
+type OrderPizzaResponse record {|
+    string pizzaId;
+    int quantity;
+    string[] customizations;
+|};
+
 type OrderPizzaRequest record {|
     string pizzaId;
     int quantity;
@@ -59,6 +65,14 @@ type Order record {|
     }
     decimal totalPrice;
     OrderPizza[] pizzas;
+|};
+
+type OrderResponse record {|
+    string id;
+    string customerName;
+    OrderStatus status;
+    decimal totalPrice;
+    OrderPizzaResponse[] pizzas;
 |};
 
 type OrderUpdate record {|
