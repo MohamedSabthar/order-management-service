@@ -1,0 +1,4 @@
+[package]
+org = "admin"
+name = "order_management_service"
+version = "0.1.0"
